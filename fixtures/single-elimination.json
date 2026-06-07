@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "tournamentId": "2026-06-07T10:11:12.000",
+  "name": "Friday Cup",
+  "format": "singleElimination",
+  "seeded": true,
+  "generatedAt": "2026-06-07T10:42:00Z",
+  "appRevision": 5,
+  "teams": [
+    { "id": "t1", "name": "Alpha" },
+    { "id": "t2", "name": "Bravo" },
+    { "id": "t3", "name": "Charlie" },
+    { "id": "t4", "name": "Delta" },
+    { "id": "t5", "name": "Echo" },
+    { "id": "t6", "name": "Foxtrot" },
+    { "id": "t7", "name": "Golf" },
+    { "id": "t8", "name": "Hotel" }
+  ],
+  "render": {
+    "colors": {
+      "background": "#151515",
+      "surface": "#222223",
+      "border": "#575757",
+      "accentRed": "#FF232B",
+      "accentGreen": "#00DE00",
+      "textPrimary": "#FFFFFF",
+      "textSecondary": "#74727F"
+    },
+    "fontFamily": "Jost",
+    "match": { "boxHeight": 96, "rowHeight": 46, "scoreBoxSize": 46, "radius": 7 },
+    "radii": { "card": 7, "input": 12, "tableHeader": 16 },
+    "standings": {
+      "roundRobinColRatios": [3, 8, 4, 7, 4, 5],
+      "swissColRatios": [3, 9, 3, 3, 3, 3, 4, 4, 4]
+    }
+  },
+  "elimination": {
+    "kind": "single",
+    "grid": {
+      "columns": 4,
+      "rows": 8,
+      "rowHeight": 44,
+      "rowSpacing": 12,
+      "columnWidth": 200,
+      "columnSpacing": 96,
+      "cells": [
+        {
+          "col": 0, "row": 0, "span": 2, "kind": "match",
+          "match": {
+            "matchNumber": 0,
+            "first": { "teamId": "t1" }, "second": { "teamId": "t8" },
+            "score": { "first": 2, "second": 0 }, "winnerTeamId": "t1", "state": "final"
+          }
+        },
+        {
+          "col": 0, "row": 2, "span": 2, "kind": "match",
+          "match": {
+            "matchNumber": 1,
+            "first": { "teamId": "t4" }, "second": { "teamId": "t5" },
+            "score": { "first": 1, "second": 2 }, "winnerTeamId": "t5", "state": "final"
+          }
+        },
+        {
+          "col": 0, "row": 4, "span": 2, "kind": "match",
+          "match": {
+            "matchNumber": 2,
+            "first": { "teamId": "t2" }, "second": { "teamId": "t7" },
+            "score": { "first": 3, "second": 1 }, "winnerTeamId": "t2", "state": "final"
+          }
+        },
+        {
+          "col": 0, "row": 6, "span": 2, "kind": "match",
+          "match": {
+            "matchNumber": 3,
+            "first": { "teamId": "t3" }, "second": { "teamId": "t6" },
+            "score": { "first": 0, "second": 2 }, "winnerTeamId": "t6", "state": "final"
+          }
+        },
+        {
+          "col": 1, "row": 1, "span": 2, "kind": "match",
+          "match": {
+            "matchNumber": 100,
+            "first": { "teamId": "t1" }, "second": { "teamId": "t5" },
+            "score": { "first": 2, "second": 1 }, "winnerTeamId": "t1", "state": "final"
+          }
+        },
+        {
+          "col": 1, "row": 5, "span": 2, "kind": "match",
+          "match": {
+            "matchNumber": 101,
+            "first": { "teamId": "t2" }, "second": { "teamId": "t6" },
+            "score": null, "winnerTeamId": null, "state": "ready"
+          }
+        },
+        {
+          "col": 2, "row": 3, "span": 2, "kind": "match",
+          "match": {
+            "matchNumber": 200,
+            "first": { "teamId": "t1" }, "second": { "teamId": null },
+            "score": null, "winnerTeamId": null, "state": "pending"
+          }
+        },
+        { "col": 3, "row": 3, "span": 2, "kind": "cup" }
+      ],
+      "connectors": [
+        { "fromCol": 0, "fromRow": 0, "toCol": 1, "toRow": 1, "fromSpan": 2, "toSpan": 2, "kind": "curve" },
+        { "fromCol": 0, "fromRow": 2, "toCol": 1, "toRow": 1, "fromSpan": 2, "toSpan": 2, "kind": "curve" },
+        { "fromCol": 0, "fromRow": 4, "toCol": 1, "toRow": 5, "fromSpan": 2, "toSpan": 2, "kind": "curve" },
+        { "fromCol": 0, "fromRow": 6, "toCol": 1, "toRow": 5, "fromSpan": 2, "toSpan": 2, "kind": "curve" },
+        { "fromCol": 1, "fromRow": 1, "toCol": 2, "toRow": 3, "fromSpan": 2, "toSpan": 2, "kind": "curve" },
+        { "fromCol": 1, "fromRow": 5, "toCol": 2, "toRow": 3, "fromSpan": 2, "toSpan": 2, "kind": "curve" },
+        { "fromCol": 2, "fromRow": 3, "toCol": 3, "toRow": 3, "fromSpan": 2, "toSpan": 2, "kind": "straight" }
+      ]
+    }
+  },
+  "highlightableTeamIds": ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"]
+}

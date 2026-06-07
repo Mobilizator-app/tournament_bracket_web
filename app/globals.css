@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens — mirror the Flutter app's app_colors.dart. A LiveSnapshot may
+   override these via inline style on a wrapper (see TournamentView). */
+:root {
+  --c-bg: #151515;
+  --c-surface: #222223;
+  --c-border: #575757;
+  --c-accent-red: #ff232b;
+  --c-accent-green: #00de00;
+  --c-text-primary: #ffffff;
+  --c-text-secondary: #74727f;
+}
+
+html,
+body {
+  background-color: var(--c-bg);
+  color: var(--c-text-primary);
+}
+
+body {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Thin dark scrollbars to match the app's surfaces. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-border) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--c-border);
+  border-radius: 4px;
+}

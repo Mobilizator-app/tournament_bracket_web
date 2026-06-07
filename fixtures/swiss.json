@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "tournamentId": "2026-06-07T12:00:00.000",
+  "name": "Swiss Open",
+  "format": "swissSystem",
+  "seeded": false,
+  "generatedAt": "2026-06-07T12:40:00Z",
+  "appRevision": 4,
+  "teams": [
+    { "id": "t1", "name": "Alpha" },
+    { "id": "t2", "name": "Bravo" },
+    { "id": "t3", "name": "Charlie" },
+    { "id": "t4", "name": "Delta" },
+    { "id": "t5", "name": "Echo" },
+    { "id": "t6", "name": "Foxtrot" }
+  ],
+  "render": {
+    "colors": {
+      "background": "#151515",
+      "surface": "#222223",
+      "border": "#575757",
+      "accentRed": "#FF232B",
+      "accentGreen": "#00DE00",
+      "textPrimary": "#FFFFFF",
+      "textSecondary": "#74727F"
+    },
+    "fontFamily": "Jost",
+    "match": { "boxHeight": 96, "rowHeight": 46, "scoreBoxSize": 46, "radius": 7 },
+    "radii": { "card": 7, "input": 12, "tableHeader": 16 },
+    "standings": {
+      "roundRobinColRatios": [3, 8, 4, 7, 4, 5],
+      "swissColRatios": [3, 9, 3, 3, 3, 3, 4, 4, 4]
+    }
+  },
+  "swiss": {
+    "totalRounds": 4,
+    "pointSystem": { "allowDraws": true, "win": 3, "draw": 1, "loss": 0 },
+    "rounds": [
+      {
+        "number": 1,
+        "isFinished": true,
+        "matches": [
+          { "matchNumber": 1, "first": { "teamId": "t1" }, "second": { "teamId": "t2" }, "score": { "first": 1, "second": 0 }, "winnerTeamId": "t1", "state": "final" },
+          { "matchNumber": 2, "first": { "teamId": "t3" }, "second": { "teamId": "t4" }, "score": { "first": 1, "second": 0 }, "winnerTeamId": "t3", "state": "final" },
+          { "matchNumber": 3, "first": { "teamId": "t5" }, "second": { "teamId": "t6" }, "score": { "first": 1, "second": 0 }, "winnerTeamId": "t5", "state": "final" }
+        ]
+      },
+      {
+        "number": 2,
+        "isFinished": true,
+        "matches": [
+          { "matchNumber": 4, "first": { "teamId": "t1" }, "second": { "teamId": "t3" }, "score": { "first": 1, "second": 0 }, "winnerTeamId": "t1", "state": "final" },
+          { "matchNumber": 5, "first": { "teamId": "t5" }, "second": { "teamId": "t4" }, "score": { "first": 1, "second": 0 }, "winnerTeamId": "t5", "state": "final" },
+          { "matchNumber": 6, "first": { "teamId": "t2" }, "second": { "teamId": "t6" }, "score": { "first": 1, "second": 0 }, "winnerTeamId": "t2", "state": "final" }
+        ]
+      },
+      {
+        "number": 3,
+        "isFinished": false,
+        "matches": [
+          { "matchNumber": 7, "first": { "teamId": "t1" }, "second": { "teamId": "t5" }, "score": null, "winnerTeamId": null, "state": "ready" },
+          { "matchNumber": 8, "first": { "teamId": "t2" }, "second": { "teamId": "t3" }, "score": null, "winnerTeamId": null, "state": "ready" },
+          { "matchNumber": 9, "first": { "teamId": "t4" }, "second": { "teamId": "t6" }, "score": null, "winnerTeamId": null, "state": "ready" }
+        ]
+      }
+    ],
+    "standings": [
+      { "rank": 1, "teamId": "t1", "pts": 6, "p": 2, "w": 2, "d": 0, "l": 0, "tb": 3.0, "diff": 2 },
+      { "rank": 2, "teamId": "t5", "pts": 6, "p": 2, "w": 2, "d": 0, "l": 0, "tb": 3.0, "diff": 2 },
+      { "rank": 3, "teamId": "t2", "pts": 3, "p": 2, "w": 1, "d": 0, "l": 1, "tb": 4.0, "diff": 0 },
+      { "rank": 4, "teamId": "t3", "pts": 3, "p": 2, "w": 1, "d": 0, "l": 1, "tb": 5.0, "diff": 0 },
+      { "rank": 5, "teamId": "t4", "pts": 0, "p": 2, "w": 0, "d": 0, "l": 2, "tb": 4.0, "diff": -2 },
+      { "rank": 6, "teamId": "t6", "pts": 0, "p": 2, "w": 0, "d": 0, "l": 2, "tb": 4.0, "diff": -2 }
+    ]
+  },
+  "highlightableTeamIds": ["t1", "t2", "t3", "t4", "t5", "t6"]
+}
