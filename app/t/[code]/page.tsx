@@ -27,8 +27,10 @@ export async function generateMetadata({
 
 export default async function TournamentPage({
   params,
+  searchParams,
 }: {
   params: { code: string };
+  searchParams: { src?: string };
 }) {
   const data = await fetchSnapshot(params.code);
   if (!data) notFound();
@@ -38,6 +40,7 @@ export default async function TournamentPage({
       code={params.code}
       initial={data.snapshot}
       initialIsLive={data.isLive}
+      source={searchParams?.src}
     />
   );
 }

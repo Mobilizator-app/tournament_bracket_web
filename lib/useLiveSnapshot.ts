@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { LiveSnapshot, ConnState } from './types';
 import { streamUrl } from './api';
+import { analytics } from './events';
 
 interface LiveResult {
   snapshot: LiveSnapshot;
@@ -47,7 +48,10 @@ export function useLiveSnapshot(
     es.addEventListener('live', (e) => {
       try {
         const d = JSON.parse((e as MessageEvent).data) as { isLive: boolean };
-        if (d.isLive === false) setConnState('stopped');
+        if (d.isLive === false) {
+          analytics.liveEnded();
+          setConnState('stopped');
+        }
       } catch {
         /* ignore */
       }
@@ -62,8 +66,12 @@ export function useLiveSnapshot(
       }
     });
 
-    es.onopen = () => setConnState((s) => (s === 'stopped' ? s : 'live'));
+    es.onopen = () => {
+      analytics.liveConnected();
+      setConnState((s) => (s === 'stopped' ? s : 'live'));
+    };
     es.onerror = () => {
+      analytics.liveReconnecting();
       // EventSource reconnects on its own; reflect the transient state unless
       // the tournament has already ended.
       setConnState((s) => (s === 'stopped' ? s : 'reconnecting'));

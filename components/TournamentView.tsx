@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { LiveSnapshot, ConnState } from '@/lib/types';
 import { EliminationView } from './bracket/EliminationView';
 import { RoundRobinView } from './format/RoundRobinView';
@@ -13,6 +13,7 @@ import { TeamSelector } from './layout/TeamSelector';
 import { cssVarsFromRender, teamNameMap } from '@/lib/render';
 import { APP_NAME } from '@/lib/constants';
 import { findChampionId } from '@/lib/champion';
+import { analytics } from '@/lib/events';
 
 interface TournamentViewProps {
   snapshot: LiveSnapshot;
@@ -26,6 +27,16 @@ export function TournamentView({ snapshot, connState, viewers }: TournamentViewP
   const [highlightTeamId, setHighlightTeamId] = useState<string | null>(null);
   const championId = findChampionId(snapshot);
   const championName = championId ? teams[championId] : null;
+
+  useEffect(() => {
+    analytics.tournamentOpen(snapshot.format);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [snapshot.tournamentId]);
+
+  useEffect(() => {
+    if (championName) analytics.championShown(championName);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [championId]);
 
   return (
     <div

@@ -1,6 +1,7 @@
 'use client';
 
 import type { Team } from '@/lib/types';
+import { analytics } from '@/lib/events';
 
 interface TeamSelectorProps {
   teams: Team[];
@@ -27,7 +28,10 @@ export function TeamSelector({
       </span>
       {selected && (
         <button
-          onClick={() => onSelect(null)}
+          onClick={() => {
+            analytics.highlightClear();
+            onSelect(null);
+          }}
           className="shrink-0 rounded-full border border-surface-border px-3 py-1 text-xs font-bold uppercase text-text-secondary transition-colors hover:text-text-primary"
         >
           Clear
@@ -38,7 +42,15 @@ export function TeamSelector({
         return (
           <button
             key={t.id}
-            onClick={() => onSelect(active ? null : t.id)}
+            onClick={() => {
+              const next = active ? null : t.id;
+              if (next) {
+                analytics.highlightTeam(t.name);
+              } else {
+                analytics.highlightClear();
+              }
+              onSelect(next);
+            }}
             className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold uppercase transition-colors ${
               active
                 ? 'bg-accent-green text-bg'
