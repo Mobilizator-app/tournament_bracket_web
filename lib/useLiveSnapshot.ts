@@ -7,6 +7,7 @@ import { streamUrl } from './api';
 interface LiveResult {
   snapshot: LiveSnapshot;
   connState: ConnState;
+  viewers: number | null;
 }
 
 /**
@@ -24,6 +25,7 @@ export function useLiveSnapshot(
   const [connState, setConnState] = useState<ConnState>(
     initialIsLive ? 'connecting' : 'stopped',
   );
+  const [viewers, setViewers] = useState<number | null>(null);
   const revisionRef = useRef<number>(initial.appRevision);
 
   useEffect(() => {
@@ -51,6 +53,15 @@ export function useLiveSnapshot(
       }
     });
 
+    es.addEventListener('viewers', (e) => {
+      try {
+        const d = JSON.parse((e as MessageEvent).data) as { count: number };
+        if (typeof d.count === 'number') setViewers(d.count);
+      } catch {
+        /* ignore */
+      }
+    });
+
     es.onopen = () => setConnState((s) => (s === 'stopped' ? s : 'live'));
     es.onerror = () => {
       // EventSource reconnects on its own; reflect the transient state unless
@@ -61,5 +72,5 @@ export function useLiveSnapshot(
     return () => es.close();
   }, [code]);
 
-  return { snapshot, connState };
+  return { snapshot, connState, viewers };
 }

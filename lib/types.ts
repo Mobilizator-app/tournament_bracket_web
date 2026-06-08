@@ -122,10 +122,8 @@ export interface EliminationBlock {
   grid: Grid;
   /** Losers grid — double-elim only. */
   losersGrid?: Grid;
-  /** Double-elim only. */
-  grandFinal?: GrandFinal;
-  /** Double-elim only. */
-  crossConnector?: CrossConnector;
+  /** Double-elim only: the Grand Final match, drawn to the right of both brackets. */
+  grandFinal?: Match;
 }
 
 // ---------------------------------------------------------------------------

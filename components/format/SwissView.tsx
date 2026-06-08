@@ -21,9 +21,11 @@ const COLUMNS: Column[] = [
 export function SwissView({
   block,
   teams,
+  highlightTeamId,
 }: {
   block: SwissBlock;
   teams: Record<string, string>;
+  highlightTeamId?: string | null;
 }) {
   const groups: MatchGroup[] = block.rounds.map((r) => ({
     title: `Round ${r.number}`,
@@ -33,7 +35,7 @@ export function SwissView({
   return (
     <div className="flex flex-col gap-8">
       <StandingsTable columns={COLUMNS} rows={block.standings} teams={teams} />
-      <MatchList groups={groups} teams={teams} />
+      <MatchList groups={groups} teams={teams} highlightTeamId={highlightTeamId} />
     </div>
   );
 }

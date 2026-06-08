@@ -18,9 +18,11 @@ const COLUMNS: Column[] = [
 export function RoundRobinView({
   block,
   teams,
+  highlightTeamId,
 }: {
   block: RoundRobinBlock;
   teams: Record<string, string>;
+  highlightTeamId?: string | null;
 }) {
   const groups: MatchGroup[] = block.rounds.flatMap((round) =>
     round.tours.map((tour) => ({
@@ -35,7 +37,7 @@ export function RoundRobinView({
   return (
     <div className="flex flex-col gap-8">
       <StandingsTable columns={COLUMNS} rows={block.standings} teams={teams} />
-      <MatchList groups={groups} teams={teams} />
+      <MatchList groups={groups} teams={teams} highlightTeamId={highlightTeamId} />
     </div>
   );
 }

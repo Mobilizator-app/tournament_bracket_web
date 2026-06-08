@@ -35,14 +35,27 @@ function TeamTile({
 export function MatchRow({
   match,
   teams,
+  highlightTeamId,
 }: {
   match: Match;
   teams: Record<string, string>;
+  highlightTeamId?: string | null;
 }) {
-  const w1 = match.winnerTeamId != null && match.first.teamId === match.winnerTeamId;
-  const w2 = match.winnerTeamId != null && match.second.teamId === match.winnerTeamId;
+  // Only tint a winner once the match is actually played (has a score), so a
+  // stray winnerTeamId on an unplayed match never turns a team green.
+  const decided = match.score != null;
+  const w1 = decided && match.winnerTeamId != null && match.first.teamId === match.winnerTeamId;
+  const w2 = decided && match.winnerTeamId != null && match.second.teamId === match.winnerTeamId;
+  const involves =
+    highlightTeamId == null ||
+    match.first.teamId === highlightTeamId ||
+    match.second.teamId === highlightTeamId;
   return (
-    <div className="flex items-stretch gap-1.5">
+    <div
+      className={`flex items-stretch gap-1.5 transition-opacity ${
+        involves ? 'opacity-100' : 'opacity-30'
+      }`}
+    >
       <TeamTile team={match.first} score={match.score?.first} isWinner={w1} teams={teams} />
       <TeamTile team={match.second} score={match.score?.second} isWinner={w2} teams={teams} />
     </div>
@@ -57,9 +70,11 @@ export interface MatchGroup {
 export function MatchList({
   groups,
   teams,
+  highlightTeamId,
 }: {
   groups: MatchGroup[];
   teams: Record<string, string>;
+  highlightTeamId?: string | null;
 }) {
   return (
     <div className="flex flex-col gap-5">
@@ -70,7 +85,12 @@ export function MatchList({
           </h3>
           <div className="flex flex-col gap-2">
             {g.matches.map((m) => (
-              <MatchRow key={m.matchNumber} match={m} teams={teams} />
+              <MatchRow
+                key={m.matchNumber}
+                match={m}
+                teams={teams}
+                highlightTeamId={highlightTeamId}
+              />
             ))}
           </div>
         </div>

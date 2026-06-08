@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "tournamentId": "2026-06-07T16:00:00.000",
+  "name": "Two Teams",
+  "format": "singleElimination",
+  "seeded": true,
+  "generatedAt": "2026-06-07T16:00:00Z",
+  "appRevision": 1,
+  "teams": [
+    { "id": "t1", "name": "Alpha" },
+    { "id": "t2", "name": "Bravo" }
+  ],
+  "render": {
+    "colors": {
+      "background": "#151515",
+      "surface": "#222223",
+      "border": "#575757",
+      "accentRed": "#FF232B",
+      "accentGreen": "#00DE00",
+      "textPrimary": "#FFFFFF",
+      "textSecondary": "#74727F"
+    },
+    "fontFamily": "Jost",
+    "match": { "boxHeight": 96, "rowHeight": 46, "scoreBoxSize": 46, "radius": 7 },
+    "radii": { "card": 7, "input": 12, "tableHeader": 16 },
+    "standings": {
+      "roundRobinColRatios": [3, 8, 4, 7, 4, 5],
+      "swissColRatios": [3, 9, 3, 3, 3, 3, 4, 4, 4]
+    }
+  },
+  "elimination": {
+    "kind": "single",
+    "grid": {
+      "columns": 2,
+      "rows": 2,
+      "rowHeight": 44,
+      "rowSpacing": 12,
+      "columnWidth": 200,
+      "columnSpacing": 96,
+      "cells": [
+        {
+          "col": 0, "row": 0, "span": 2, "kind": "match",
+          "match": {
+            "matchNumber": 0,
+            "first": { "teamId": "t1" }, "second": { "teamId": "t2" },
+            "score": { "first": 2, "second": 1 }, "winnerTeamId": "t1", "state": "final"
+          }
+        },
+        { "col": 1, "row": 0, "span": 2, "kind": "cup" }
+      ],
+      "connectors": []
+    }
+  },
+  "highlightableTeamIds": ["t1", "t2"]
+}

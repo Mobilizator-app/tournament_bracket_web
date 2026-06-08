@@ -13,6 +13,8 @@ export function LiveTournament({
   initial: LiveSnapshot;
   initialIsLive: boolean;
 }) {
-  const { snapshot, connState } = useLiveSnapshot(code, initial, initialIsLive);
-  return <TournamentView snapshot={snapshot} connState={connState} />;
+  const { snapshot, connState, viewers } = useLiveSnapshot(code, initial, initialIsLive);
+  return (
+    <TournamentView snapshot={snapshot} connState={connState} viewers={viewers} />
+  );
 }

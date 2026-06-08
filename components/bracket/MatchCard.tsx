@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
 import type { Match, TeamRef } from '@/lib/types';
 
 interface MatchCardProps {
@@ -5,6 +8,8 @@ interface MatchCardProps {
   teams: Record<string, string>;
   /** When set, dim matches that don't involve this team (path highlight). */
   highlightTeamId?: string | null;
+  /** Highlights this card as the tournament final (accent ring + glow). */
+  isFinal?: boolean;
 }
 
 function TeamRow({
@@ -39,22 +44,42 @@ function TeamRow({
   );
 }
 
-export function MatchCard({ match, teams, highlightTeamId }: MatchCardProps) {
+export function MatchCard({ match, teams, highlightTeamId, isFinal }: MatchCardProps) {
+  // Only tint a winner once the match has a score, so a stray winnerTeamId on an
+  // unplayed match never turns a team green.
+  const decided = match.score != null;
   const firstWin =
-    match.winnerTeamId != null && match.first.teamId === match.winnerTeamId;
+    decided && match.winnerTeamId != null && match.first.teamId === match.winnerTeamId;
   const secondWin =
-    match.winnerTeamId != null && match.second.teamId === match.winnerTeamId;
+    decided && match.winnerTeamId != null && match.second.teamId === match.winnerTeamId;
 
   const involvesHighlight =
     highlightTeamId == null ||
     match.first.teamId === highlightTeamId ||
     match.second.teamId === highlightTeamId;
 
+  // Flash the card briefly when its score changes via a live update.
+  const [flash, setFlash] = useState(false);
+  const prevScore = useRef(`${match.score?.first}-${match.score?.second}`);
+  useEffect(() => {
+    const key = `${match.score?.first}-${match.score?.second}`;
+    if (key !== prevScore.current) {
+      prevScore.current = key;
+      setFlash(true);
+      const t = setTimeout(() => setFlash(false), 1200);
+      return () => clearTimeout(t);
+    }
+  }, [match.score?.first, match.score?.second]);
+
   return (
     <div
-      className={`flex h-[96px] flex-col justify-between transition-opacity ${
+      className={`flex h-[96px] flex-col justify-between rounded-card transition-opacity ${
         involvesHighlight ? 'opacity-100' : 'opacity-30'
-      }`}
+      } ${
+        isFinal
+          ? 'ring-2 ring-amber-400 shadow-[0_0_18px_rgba(251,191,36,0.45)]'
+          : ''
+      } ${flash ? 'match-flash' : ''}`}
     >
       <TeamRow
         team={match.first}

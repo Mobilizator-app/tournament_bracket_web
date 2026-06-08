@@ -9,8 +9,10 @@ import {
 
 const FIT_PADDING = 24;
 
-// Mirrors the app's InteractiveViewer (minScale 0.1, maxScale 3.0, free pan),
-// and fits the whole bracket into view on first paint (and on resize).
+// Mirrors the app's InteractiveViewer (minScale 0.1, maxScale 3.0, free pan).
+// Fits the bracket to the viewport width on first paint and whenever the
+// content or viewport resizes; tall brackets overflow vertically and are panned
+// (like the app's "swipe to see more").
 export function ZoomPanStage({ children }: { children: React.ReactNode }) {
   const api = useRef<ReactZoomPanPinchRef>(null);
   const wrapper = useRef<HTMLDivElement>(null);
@@ -24,17 +26,23 @@ export function ZoomPanStage({ children }: { children: React.ReactNode }) {
       const cw = content.current.scrollWidth;
       const ch = content.current.scrollHeight;
       if (!cw || !ch || !ww) return;
-      const scale = Math.max(
-        0.1,
-        Math.min(1, (ww - FIT_PADDING * 2) / cw, (wh - FIT_PADDING * 2) / ch),
-      );
+      const widthFit = (ww - FIT_PADDING * 2) / cw;
+      const fitsWhole = widthFit * ch <= wh - FIT_PADDING * 2;
+      const scale = fitsWhole
+        ? Math.min(1, widthFit)
+        : Math.min(1, Math.max(0.3, widthFit));
       api.current.setTransform(FIT_PADDING, FIT_PADDING, scale, 0);
     };
-    const t = setTimeout(fit, 60);
-    window.addEventListener('resize', fit);
+
+    // Refit whenever the content (bracket size) or viewport changes — this also
+    // covers the first real layout after data renders.
+    const ro = new ResizeObserver(() => fit());
+    if (content.current) ro.observe(content.current);
+    if (wrapper.current) ro.observe(wrapper.current);
+    const t = setTimeout(fit, 80);
     return () => {
       clearTimeout(t);
-      window.removeEventListener('resize', fit);
+      ro.disconnect();
     };
   }, []);
 

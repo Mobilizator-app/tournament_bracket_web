@@ -63,19 +63,31 @@ export function connectorPath(c: Connector, m: GridMetrics): string {
     y2 = cellCenterY(c.toRow, c.toSpan, m);
   } else {
     const childCenter = cellCenterY(c.toRow, c.toSpan, m);
-    const toSlot = y1 <= childCenter ? 0 : 1;
-    y2 = teamSlotCenterY(c.toRow, toSlot, m);
+    // Two children sit clearly above/below the parent center -> aim at their
+    // team slot. A single/aligned child (e.g. WB-final -> Grand Final) is level
+    // with the center, so aim at the center to keep the line straight.
+    if (Math.abs(y1 - childCenter) < m.rowHeight) {
+      y2 = childCenter;
+    } else {
+      const toSlot = y1 <= childCenter ? 0 : 1;
+      y2 = teamSlotCenterY(c.toRow, toSlot, m);
+    }
   }
 
   if (c.kind === 'straight') {
     return `M ${x1} ${y1} L ${x2} ${y2}`;
   }
 
-  const midX = (x1 + x2) / 2;
   const dy = y2 - y1;
-  let absDy = Math.abs(dy);
+  // Aligned endpoints -> a straight line. (The app nudges absDy up to half a
+  // row here, which adds a visible hook on level connectors — we don't want it.)
+  if (Math.abs(dy) < 2) {
+    return `M ${x1} ${y1} L ${x2} ${y2}`;
+  }
+
+  const midX = (x1 + x2) / 2;
+  const absDy = Math.abs(dy);
   const sign = dy >= 0 ? 1 : -1;
-  if (absDy < 1e-3) absDy = m.rowHeight * 0.5;
 
   const yCtrl1 = y1 + sign * absDy * 0.05;
   const yMidTop = y1 + sign * absDy * 0.4;

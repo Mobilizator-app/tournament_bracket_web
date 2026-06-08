@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "tournamentId": "2026-06-07T15:00:00.000",
+  "name": "Swiss (unplayed bug repro)",
+  "format": "swissSystem",
+  "seeded": false,
+  "generatedAt": "2026-06-07T15:00:00Z",
+  "appRevision": 1,
+  "teams": [
+    { "id": "t1", "name": "Alpha" },
+    { "id": "t2", "name": "Bravo" },
+    { "id": "t3", "name": "Charlie" },
+    { "id": "t4", "name": "Delta" }
+  ],
+  "render": {
+    "colors": {
+      "background": "#151515",
+      "surface": "#222223",
+      "border": "#575757",
+      "accentRed": "#FF232B",
+      "accentGreen": "#00DE00",
+      "textPrimary": "#FFFFFF",
+      "textSecondary": "#74727F"
+    },
+    "fontFamily": "Jost",
+    "match": { "boxHeight": 96, "rowHeight": 46, "scoreBoxSize": 46, "radius": 7 },
+    "radii": { "card": 7, "input": 12, "tableHeader": 16 },
+    "standings": {
+      "roundRobinColRatios": [3, 8, 4, 7, 4, 5],
+      "swissColRatios": [3, 9, 3, 3, 3, 3, 4, 4, 4]
+    }
+  },
+  "swiss": {
+    "totalRounds": 3,
+    "pointSystem": { "allowDraws": true, "win": 3, "draw": 1, "loss": 0 },
+    "rounds": [
+      {
+        "number": 1,
+        "isFinished": false,
+        "matches": [
+          { "matchNumber": 1, "first": { "teamId": "t1" }, "second": { "teamId": "t2" }, "score": null, "winnerTeamId": "t2", "state": "ready" },
+          { "matchNumber": 2, "first": { "teamId": "t3" }, "second": { "teamId": "t4" }, "score": null, "winnerTeamId": "t4", "state": "ready" }
+        ]
+      }
+    ],
+    "standings": [
+      { "rank": 1, "teamId": "t1", "pts": 0, "p": 0, "w": 0, "d": 0, "l": 0, "tb": 0, "diff": 0 },
+      { "rank": 2, "teamId": "t2", "pts": 0, "p": 0, "w": 0, "d": 0, "l": 0, "tb": 0, "diff": 0 },
+      { "rank": 3, "teamId": "t3", "pts": 0, "p": 0, "w": 0, "d": 0, "l": 0, "tb": 0, "diff": 0 },
+      { "rank": 4, "teamId": "t4", "pts": 0, "p": 0, "w": 0, "d": 0, "l": 0, "tb": 0, "diff": 0 }
+    ]
+  },
+  "highlightableTeamIds": ["t1", "t2", "t3", "t4"]
+}
