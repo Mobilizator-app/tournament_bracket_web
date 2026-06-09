@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { APP_NAME } from '@/lib/constants';
 import { AppStoreButton } from '@/components/layout/AppStoreButton';
+import { PlayStoreButton } from '@/components/layout/PlayStoreButton';
 
 const NAV = [
   { href: '/privacy', label: 'Privacy' },
@@ -8,7 +9,7 @@ const NAV = [
   { href: '/contact', label: 'Contact' },
 ];
 
-/** Marketing-site header: brand → home, nav links, App Store button. */
+/** Marketing-site header: brand → home, nav links, store buttons. */
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-20 border-b border-surface-border bg-bg/90 backdrop-blur">
@@ -20,7 +21,7 @@ export function SiteHeader() {
             alt={APP_NAME}
             className="h-9 w-9 shrink-0 rounded-[8px] md:h-11 md:w-11 md:rounded-[10px]"
           />
-          <span className="text-base font-bold tracking-wide text-text-primary md:text-lg">
+          <span className="hidden text-base font-bold tracking-wide text-text-primary sm:inline md:text-lg">
             {APP_NAME}
           </span>
         </Link>
@@ -36,7 +37,10 @@ export function SiteHeader() {
               </Link>
             ))}
           </nav>
-          <AppStoreButton />
+          <div className="flex items-center gap-2 md:gap-3">
+            <AppStoreButton />
+            <PlayStoreButton />
+          </div>
         </div>
       </div>
     </header>

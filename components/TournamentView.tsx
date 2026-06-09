@@ -9,6 +9,7 @@ import { GroupStageView } from './format/GroupStageView';
 import { ZoomPanStage } from './layout/ZoomPanStage';
 import { LiveBadge } from './layout/LiveBadge';
 import { AppStoreButton } from './layout/AppStoreButton';
+import { PlayStoreButton } from './layout/PlayStoreButton';
 import { TeamSelector } from './layout/TeamSelector';
 import { cssVarsFromRender, teamNameMap } from '@/lib/render';
 import { APP_NAME } from '@/lib/constants';
@@ -80,7 +81,10 @@ export function TournamentView({ snapshot, connState, viewers }: TournamentViewP
             </span>
           )}
           <LiveBadge connState={connState} />
-          <AppStoreButton />
+          <div className="flex items-center gap-2 md:gap-3">
+            <AppStoreButton compact />
+            <PlayStoreButton compact />
+          </div>
         </div>
       </header>
 

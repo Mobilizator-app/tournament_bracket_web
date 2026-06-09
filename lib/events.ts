@@ -21,6 +21,9 @@ export const analytics = {
   /** The App Store button was tapped. */
   appStoreClick: () => track('appstore_click'),
 
+  /** The Google Play button was tapped. */
+  playStoreClick: () => track('playstore_click'),
+
   /** Contact form submitted. ok=false when the request failed. */
   contactSubmit: (ok: boolean) => track('contact_submit', { ok }),
 

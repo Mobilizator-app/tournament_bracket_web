@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 import { SiteShell } from '@/components/site/SiteShell';
 import { AppStoreButton } from '@/components/layout/AppStoreButton';
+import { PlayStoreButton } from '@/components/layout/PlayStoreButton';
 import { ContactForm } from '@/components/site/ContactForm';
 
 export const metadata: Metadata = {
@@ -43,8 +44,9 @@ export default function Home() {
           For sports and esports competitions — build your bracket in minutes and
           broadcast it live to every player and fan.
         </p>
-        <div className="mt-9 flex items-center justify-center">
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
           <AppStoreButton />
+          <PlayStoreButton />
         </div>
       </section>
 
