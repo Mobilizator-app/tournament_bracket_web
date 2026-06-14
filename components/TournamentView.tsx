@@ -35,7 +35,7 @@ export function TournamentView({ snapshot, connState, viewers }: TournamentViewP
   }, [snapshot.tournamentId]);
 
   useEffect(() => {
-    if (championName) analytics.championShown(championName);
+    if (championName) analytics.championShown();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [championId]);
 
@@ -82,8 +82,8 @@ export function TournamentView({ snapshot, connState, viewers }: TournamentViewP
           )}
           <LiveBadge connState={connState} />
           <div className="flex items-center gap-2 md:gap-3">
-            <AppStoreButton compact />
-            <PlayStoreButton compact />
+            <AppStoreButton compact placement="live_header" />
+            <PlayStoreButton compact placement="live_header" />
           </div>
         </div>
       </header>

@@ -49,7 +49,7 @@ export function useLiveSnapshot(
       try {
         const d = JSON.parse((e as MessageEvent).data) as { isLive: boolean };
         if (d.isLive === false) {
-          analytics.liveEnded();
+          analytics.liveEnded(initial.format);
           setConnState('stopped');
         }
       } catch {
@@ -67,11 +67,11 @@ export function useLiveSnapshot(
     });
 
     es.onopen = () => {
-      analytics.liveConnected();
+      analytics.liveConnected(initial.format);
       setConnState((s) => (s === 'stopped' ? s : 'live'));
     };
     es.onerror = () => {
-      analytics.liveReconnecting();
+      analytics.liveReconnecting(initial.format);
       // EventSource reconnects on its own; reflect the transient state unless
       // the tournament has already ended.
       setConnState((s) => (s === 'stopped' ? s : 'reconnecting'));

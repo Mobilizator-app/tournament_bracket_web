@@ -45,8 +45,8 @@ export default function Home() {
           broadcast it live to every player and fan.
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-          <AppStoreButton />
-          <PlayStoreButton />
+          <AppStoreButton placement="hero" />
+          <PlayStoreButton placement="hero" />
         </div>
       </section>
 

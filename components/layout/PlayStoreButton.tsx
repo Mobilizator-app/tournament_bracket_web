@@ -4,13 +4,19 @@ import { PLAY_STORE_URL } from '@/lib/constants';
 import { analytics } from '@/lib/events';
 
 /** "Google Play" pill linking to the Android app. `compact` => icon-only on mobile. */
-export function PlayStoreButton({ compact = false }: { compact?: boolean }) {
+export function PlayStoreButton({
+  compact = false,
+  placement = 'unknown',
+}: {
+  compact?: boolean;
+  placement?: string;
+}) {
   return (
     <a
       href={PLAY_STORE_URL}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => analytics.playStoreClick()}
+      onClick={() => analytics.playStoreClick(placement)}
       className="flex shrink-0 items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-black transition-opacity hover:opacity-85 md:gap-2 md:px-5 md:py-2.5 md:text-base"
     >
       <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 md:h-5 md:w-5" fill="currentColor" aria-hidden>

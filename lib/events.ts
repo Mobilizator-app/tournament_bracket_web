@@ -12,32 +12,35 @@ export const analytics = {
   /** How the viewer arrived: 'qr' (scanned), 'link' (tapped a shared link), or 'direct'. */
   shareSource: (source: string) => track('share_source', { source }),
 
-  /** A team chip was tapped to highlight its path. */
-  highlightTeam: (team: string) => track('highlight_team', { team }),
+  /** A team chip was tapped to highlight its path (feature-usage signal; count it). */
+  highlightTeam: () => track('highlight_team'),
 
   /** Highlight was cleared. */
   highlightClear: () => track('highlight_clear'),
 
-  /** The App Store button was tapped. */
-  appStoreClick: () => track('appstore_click'),
+  /** App Store button tapped. `placement`: hero | header | live_header. */
+  appStoreClick: (placement = 'unknown') =>
+    track('appstore_click', { placement }),
 
-  /** The Google Play button was tapped. */
-  playStoreClick: () => track('playstore_click'),
+  /** Google Play button tapped. `placement`: hero | header | live_header. */
+  playStoreClick: (placement = 'unknown') =>
+    track('playstore_click', { placement }),
 
   /** Contact form submitted. ok=false when the request failed. */
   contactSubmit: (ok: boolean) => track('contact_submit', { ok }),
 
-  /** The champion banner became visible. */
-  championShown: (team: string) => track('champion_shown', { team }),
+  /** The champion banner became visible (a tournament reached a winner; team name not tracked). */
+  championShown: () => track('champion_shown'),
 
   /** SSE stream connected. */
-  liveConnected: () => track('live_connected'),
+  liveConnected: (format: string) => track('live_connected', { format }),
 
   /** SSE stream dropped and is reconnecting. */
-  liveReconnecting: () => track('live_reconnecting'),
+  liveReconnecting: (format: string) =>
+    track('live_reconnecting', { format }),
 
   /** The tournament stopped broadcasting. */
-  liveEnded: () => track('live_ended'),
+  liveEnded: (format: string) => track('live_ended', { format }),
 
   /** Uncaught error / render crash — the web equivalent of Crashlytics. */
   exception: (description: string, fatal: boolean) =>

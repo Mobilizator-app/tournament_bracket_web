@@ -45,7 +45,7 @@ export function TeamSelector({
             onClick={() => {
               const next = active ? null : t.id;
               if (next) {
-                analytics.highlightTeam(t.name);
+                analytics.highlightTeam();
               } else {
                 analytics.highlightClear();
               }

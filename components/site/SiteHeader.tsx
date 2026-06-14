@@ -38,8 +38,8 @@ export function SiteHeader() {
             ))}
           </nav>
           <div className="flex items-center gap-2 md:gap-3">
-            <AppStoreButton />
-            <PlayStoreButton />
+            <AppStoreButton placement="header" />
+            <PlayStoreButton placement="header" />
           </div>
         </div>
       </div>
