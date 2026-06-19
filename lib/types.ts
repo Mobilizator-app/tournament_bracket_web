@@ -25,6 +25,8 @@ export type ConnectorKind = 'straight' | 'curve';
 export interface Team {
   id: string;
   name: string;
+  /** Base64 data URI of the team's logo (present only when the tournament uses logos). */
+  logo?: string;
 }
 
 /** Reference to a team inside a match. teamId null => slot is TBD (not yet known). */
@@ -247,6 +249,8 @@ export interface LiveSnapshot {
   /** Monotonic per-tournament counter; used to ignore out-of-order SSE frames. */
   appRevision: number;
   teams: Team[];
+  /** When true, the renderer shows team logos (uploaded image or initial circle). */
+  useTeamLogos?: boolean;
   render: RenderTokens;
   elimination?: EliminationBlock;
   roundRobin?: RoundRobinBlock;

@@ -5,10 +5,16 @@ import {
   type Column,
 } from '../standings/StandingsTable';
 import { MatchList, type MatchGroup } from '../standings/MatchList';
+import { TeamNameCell } from '@/components/TeamLogo';
 
 const COLUMNS: Column[] = [
   { label: '#', ratio: 3, align: 'center', render: (r) => r.rank },
-  { label: 'Team', ratio: 9, align: 'left', render: (r, t) => t[r.teamId] ?? r.teamId },
+  {
+    label: 'Team',
+    ratio: 9,
+    align: 'left',
+    render: (r, t) => <TeamNameCell teamId={r.teamId} name={t[r.teamId] ?? r.teamId} />,
+  },
   { label: 'MP', ratio: 3, align: 'center', render: (r) => r.p ?? r.gp ?? '-' },
   { label: 'W', ratio: 3, align: 'center', render: (r) => r.w },
   { label: 'D', ratio: 3, align: 'center', render: (r) => r.d },

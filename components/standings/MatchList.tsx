@@ -1,4 +1,5 @@
 import type { Match, TeamRef } from '@/lib/types';
+import { TeamLogo, useTeamLogos } from '@/components/TeamLogo';
 
 function TeamTile({
   team,
@@ -11,14 +12,21 @@ function TeamTile({
   isWinner: boolean;
   teams: Record<string, string>;
 }) {
+  const { logos, showLogos } = useTeamLogos();
   const name = team.teamId ? (teams[team.teamId] ?? '') : team.isBye ? 'BYE' : '';
+  const hasLogo = showLogos && !!team.teamId;
   return (
     <div
-      className={`flex h-12 flex-1 items-center rounded-card bg-surface ${
-        isWinner ? 'border border-accent-green' : ''
-      }`}
+      className={`flex h-12 flex-1 items-center gap-2 rounded-card bg-surface ${
+        hasLogo ? 'pl-2' : ''
+      } ${isWinner ? 'border border-accent-green' : ''}`}
     >
-      <span className="flex-1 truncate px-2.5 text-base uppercase text-text-primary">
+      {hasLogo && <TeamLogo name={name} logo={logos[team.teamId!]} size={26} />}
+      <span
+        className={`flex-1 truncate ${
+          hasLogo ? 'pr-2.5' : 'px-2.5'
+        } text-base uppercase text-text-primary`}
+      >
         {name}
       </span>
       <span

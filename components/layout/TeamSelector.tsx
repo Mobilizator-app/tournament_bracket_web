@@ -2,6 +2,7 @@
 
 import type { Team } from '@/lib/types';
 import { analytics } from '@/lib/events';
+import { TeamLogo, useTeamLogos } from '@/components/TeamLogo';
 
 interface TeamSelectorProps {
   teams: Team[];
@@ -19,6 +20,7 @@ export function TeamSelector({
 }: TeamSelectorProps) {
   const ids = new Set(highlightableIds);
   const list = teams.filter((t) => ids.has(t.id));
+  const { showLogos } = useTeamLogos();
   if (list.length === 0) return null;
 
   return (
@@ -51,12 +53,15 @@ export function TeamSelector({
               }
               onSelect(next);
             }}
-            className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold uppercase transition-colors ${
+            className={`flex shrink-0 items-center gap-1.5 rounded-full py-1 text-xs font-bold uppercase transition-colors ${
+              showLogos ? 'pl-1.5 pr-3' : 'px-3'
+            } ${
               active
                 ? 'bg-accent-green text-bg'
                 : 'bg-surface text-text-primary hover:bg-surface-border'
             }`}
           >
+            {showLogos && <TeamLogo name={t.name} logo={t.logo} size={16} />}
             {t.name}
           </button>
         );

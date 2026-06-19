@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import type { Match, TeamRef } from '@/lib/types';
+import { TeamLogo, useTeamLogos } from '@/components/TeamLogo';
 
 interface MatchCardProps {
   match: Match;
@@ -23,14 +24,21 @@ function TeamRow({
   isWinner: boolean;
   teams: Record<string, string>;
 }) {
+  const { logos, showLogos } = useTeamLogos();
   const name = team.teamId ? (teams[team.teamId] ?? '') : team.isBye ? 'BYE' : '';
+  const hasLogo = showLogos && !!team.teamId;
   return (
     <div
-      className={`flex h-[46px] items-center rounded-card bg-surface ${
-        isWinner ? 'border border-accent-green' : ''
-      }`}
+      className={`flex h-[46px] items-center gap-2 rounded-card bg-surface ${
+        hasLogo ? 'pl-[8px]' : ''
+      } ${isWinner ? 'border border-accent-green' : ''}`}
     >
-      <span className="flex-1 truncate pl-[10px] text-base font-normal uppercase text-text-primary">
+      {hasLogo && <TeamLogo name={name} logo={logos[team.teamId!]} size={28} />}
+      <span
+        className={`flex-1 truncate ${
+          hasLogo ? '' : 'pl-[10px]'
+        } text-base font-normal uppercase text-text-primary`}
+      >
         {name}
       </span>
       <span

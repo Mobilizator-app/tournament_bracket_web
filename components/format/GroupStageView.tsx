@@ -6,10 +6,16 @@ import {
 } from '../standings/StandingsTable';
 import { MatchList } from '../standings/MatchList';
 import { EliminationView } from '../bracket/EliminationView';
+import { TeamNameCell } from '@/components/TeamLogo';
 
 const COLUMNS: Column[] = [
   { label: '#', ratio: 3, align: 'center', render: (r) => r.rank },
-  { label: 'Team', ratio: 8, align: 'left', render: (r, t) => t[r.teamId] ?? r.teamId },
+  {
+    label: 'Team',
+    ratio: 8,
+    align: 'left',
+    render: (r, t) => <TeamNameCell teamId={r.teamId} name={t[r.teamId] ?? r.teamId} />,
+  },
   { label: 'Pts', ratio: 3, align: 'center', render: (r) => r.pts },
   { label: 'W-L-D', ratio: 6, align: 'center', render: (r) => `${r.w}-${r.l}-${r.d}` },
   { label: 'GD', ratio: 3, align: 'center', render: (r) => formatGd(r.gd) },

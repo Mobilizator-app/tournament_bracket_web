@@ -15,6 +15,7 @@ import { cssVarsFromRender, teamNameMap } from '@/lib/render';
 import { APP_NAME } from '@/lib/constants';
 import { findChampionId } from '@/lib/champion';
 import { analytics } from '@/lib/events';
+import { TeamLogosProvider } from './TeamLogo';
 
 interface TournamentViewProps {
   snapshot: LiveSnapshot;
@@ -25,6 +26,8 @@ interface TournamentViewProps {
 /** Root viewer. Dispatches by format; reused by the dev route and /t/[code]. */
 export function TournamentView({ snapshot, connState, viewers }: TournamentViewProps) {
   const teams = teamNameMap(snapshot.teams);
+  const logos = Object.fromEntries(snapshot.teams.map((t) => [t.id, t.logo]));
+  const showLogos = snapshot.useTeamLogos ?? false;
   const [highlightTeamId, setHighlightTeamId] = useState<string | null>(null);
   const championId = findChampionId(snapshot);
   const championName = championId ? teams[championId] : null;
@@ -40,6 +43,7 @@ export function TournamentView({ snapshot, connState, viewers }: TournamentViewP
   }, [championId]);
 
   return (
+    <TeamLogosProvider value={{ logos, showLogos }}>
     <div
       className="flex h-[100dvh] flex-col bg-bg"
       style={cssVarsFromRender(snapshot.render)}
@@ -108,6 +112,7 @@ export function TournamentView({ snapshot, connState, viewers }: TournamentViewP
         <Body snapshot={snapshot} teams={teams} highlightTeamId={highlightTeamId} />
       </div>
     </div>
+    </TeamLogosProvider>
   );
 }
 
